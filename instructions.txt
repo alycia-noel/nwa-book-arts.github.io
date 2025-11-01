@@ -1,0 +1,33 @@
+These are the instructions for building a website for NWA Book Arts. Follow the wanted color scheme, fonts, styles, and all requirements. Make the website so that it can be hosted on github pages.
+
+Colors to use:
+#EAEEF1
+#DEC1A6
+#536C7C
+#677F3D
+#141B1F
+
+Fonts to use:
+Sansita
+Nunito Sans
+
+Styles:
+Friendly, round, simple
+
+Requirements:
+1. Header with the title 'NWA BOOK ARTS' on the left and navigations buttons for 'Events', and 'Member Resources' on the right. This header should be visible on every page and serve and the main navigation bar for the site. See references/header.png for reference. 
+
+2. Footer with 'NWA BOOK ARTS' title on the left, with navigation in the middle and a sign up form on the right. See references/footer.png reference. 
+
+2. Landing page with the following
+    A. Section 1 with an image (assets/intro-photo.jpg) overlaid with the text 'Northwest Arkansas Book Arts \n For anyone at any level'. See references/section1.png for reference. 
+    B. Section 2 with image (assets/aboutus-image.jpg) on the left with text content on the right. Text content should titled 'ABOUT US' with the following text body 'We are a small collective of bookbinders, book conservators, book artists, and all around book lovers located in Northwest Arkansas. We welcome everyone — regardless of experience. All you need is a love of books and the art that goes into making them.' Below text should be a button titled 'JOIN US' that links to https://forms.gle/c7bKJwp8KhnTtTnp6. See references/aboutus.png for reference. 
+
+3. Events page with the following:
+    A. Left section titled 'UPCOMING EVENTS' with a list of events underneath. Each event should be populated with information from events.csv. Only use events with Upcoming = True. Use references/event.png as an example. 
+    B. Right section titled 'PREVIOUS EVENTS' with a list of previous events underneath. Each event should be populated with information from events.csv. Only use events with Upcoming = False. Use references/event.png as an example. 
+
+4. Member Resources with the following:
+    A. Left section titled 'MEMBER RESOURCES' with the text 'All resources are password protected. \n \n Not a member?' followed by a button titled 'JOIN US' that links to https://forms.gle/c7bKJwp8KhnTtTnp6 . 
+    B. Right side that has links for Resources (https://docs.google.com/document/d/1pC26inilF0EOuQsuwAEEQXuQXK1zsvUR8Tt_Rj3IWN4/edit?usp=drive_link) and Directory (https://docs.google.com/spreadsheets/d/1KSfCPhNRw0Z89BAdEcNQRIZ-yQjSH1FypEG12oL1D4Q/edit?usp=drive_link). 
+    C. Use references/member.png as a reference.
