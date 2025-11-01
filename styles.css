@@ -28,7 +28,7 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     color: var(--color-dark);
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
 }
 
 /* Container */
@@ -155,7 +155,6 @@ p {
     position: relative;
     height: 500px;
     overflow: hidden;
-    border-radius: 0 0 30px 30px;
 }
 
 .hero-image img {
