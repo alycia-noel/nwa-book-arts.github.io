@@ -98,15 +98,18 @@ function displayEvents(events) {
     upcomingContainer.innerHTML = '';
     previousContainer.innerHTML = '';
     
-    events.forEach(event => {
+    // Separate upcoming and previous events
+    const upcomingEvents = events.filter(event => event.Upcoming === 'True' || event.Upcoming === true);
+    const previousEvents = events.filter(event => event.Upcoming === 'False' || event.Upcoming === false);
+    
+    // Display upcoming events normally
+    upcomingEvents.forEach(event => {
         const eventElement = createEventElement(event);
-        
-        if (event.Upcoming === 'True' || event.Upcoming === true) {
-            upcomingContainer.appendChild(eventElement);
-        } else {
-            previousContainer.appendChild(eventElement);
-        }
+        upcomingContainer.appendChild(eventElement);
     });
+    
+    // Organize previous events by month/year
+    displayPreviousEvents(previousEvents, previousContainer);
     
     // Add fallback message if no events
     if (upcomingContainer.children.length === 0) {
@@ -116,6 +119,99 @@ function displayEvents(events) {
     if (previousContainer.children.length === 0) {
         previousContainer.innerHTML = '<p class="no-events">No previous events to display.</p>';
     }
+}
+
+function displayPreviousEvents(events, container) {
+    // Sort events chronologically (newest first)
+    const sortedEvents = events.sort((a, b) => {
+        const dateA = new Date(a.Date || '1900-01-01');
+        const dateB = new Date(b.Date || '1900-01-01');
+        return dateB - dateA;
+    });
+    
+    // Create a single event list
+    const eventList = document.createElement('ul');
+    eventList.className = 'event-list';
+    
+    sortedEvents.forEach(event => {
+        const listItem = document.createElement('li');
+        listItem.className = 'event-bullet';
+        
+        const eventLink = document.createElement('a');
+        eventLink.className = 'event-link';
+        eventLink.href = `events/${createEventSlug(event['Event Name'])}.html`;
+        
+        // Format as 'Date - Event Name'
+        const dateStr = formatEventDate(event.Date) || 'TBA';
+        const eventName = event['Event Name'] || 'Untitled Event';
+        eventLink.textContent = `${dateStr} - ${eventName}`;
+        
+        listItem.appendChild(eventLink);
+        eventList.appendChild(listItem);
+    });
+    
+    container.appendChild(eventList);
+}
+
+function extractMonthYear(dateStr) {
+    // Try to parse different date formats and extract month/year
+    const date = new Date(dateStr);
+    
+    if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    }
+    
+    // Fallback for non-standard formats
+    if (dateStr.includes('2025')) return 'November 2025';
+    if (dateStr.includes('2026')) return 'February 2026';
+    
+    return 'Unknown Date';
+}
+
+function createEventSlug(eventName) {
+    return eventName.toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim('-');
+}
+
+function formatEventDate(dateStr) {
+    if (!dateStr || dateStr === 'TBA') return dateStr;
+    
+    // Try to parse the date
+    const date = new Date(dateStr);
+    
+    // If it's a valid date, format it as "Month Day, Year"
+    if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString('en-US', { 
+            month: 'long', 
+            day: 'numeric', 
+            year: 'numeric' 
+        });
+    }
+    
+    // For partial dates like "December 2025" or "February 2026"
+    if (dateStr.includes('2025') || dateStr.includes('2026')) {
+        // Handle cases like "December 2025"
+        const parts = dateStr.trim().split(' ');
+        if (parts.length === 2) {
+            const month = parts[0];
+            const year = parts[1];
+            return `${month} ${year}`;
+        }
+        
+        // Handle cases like "September 6 2025" (add comma)
+        if (parts.length === 3) {
+            const month = parts[0];
+            const day = parts[1];
+            const year = parts[2];
+            return `${month} ${day}, ${year}`;
+        }
+    }
+    
+    // Return original if we can't format it
+    return dateStr;
 }
 
 function createEventElement(event) {
@@ -255,3 +351,81 @@ if (document.readyState === 'loading') {
 } else {
     initializeScrollAnimations();
 }
+
+// Carousel functionality
+let currentSlideIndex = 0;
+
+function moveCarousel(direction) {
+    const track = document.getElementById('carousel-track');
+    const slides = track?.children;
+    
+    if (!slides || slides.length === 0) return;
+    
+    currentSlideIndex += direction;
+    
+    // Loop around if at the ends
+    if (currentSlideIndex >= slides.length) {
+        currentSlideIndex = 0;
+    } else if (currentSlideIndex < 0) {
+        currentSlideIndex = slides.length - 1;
+    }
+    
+    updateCarousel();
+}
+
+function currentSlide(slideNumber) {
+    currentSlideIndex = slideNumber - 1; // Convert to 0-based index
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const track = document.getElementById('carousel-track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    if (!track) return;
+    
+    // Move the track
+    const translateX = -currentSlideIndex * 100;
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    // Update dots
+    dots.forEach((dot, index) => {
+        if (index === currentSlideIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Auto-advance carousel (optional)
+function startCarouselAutoplay() {
+    setInterval(() => {
+        const track = document.getElementById('carousel-track');
+        if (track && track.children.length > 0) {
+            moveCarousel(1);
+        }
+    }, 5000); // Change slide every 5 seconds
+}
+
+// Initialize carousel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize carousel if it exists on the page
+    const carousel = document.getElementById('carousel-track');
+    if (carousel) {
+        updateCarousel(); // Set initial state
+        // Uncomment the next line if you want auto-play
+        // startCarouselAutoplay();
+    }
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (!document.getElementById('carousel-track')) return;
+        
+        if (e.key === 'ArrowLeft') {
+            moveCarousel(-1);
+        } else if (e.key === 'ArrowRight') {
+            moveCarousel(1);
+        }
+    });
+});
