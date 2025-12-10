@@ -179,7 +179,27 @@ function createEventSlug(eventName) {
 function formatEventDate(dateStr) {
     if (!dateStr || dateStr === 'TBA') return dateStr;
     
-    // Try to parse the date
+    // First, handle the common formats in our CSV
+    if (dateStr.includes('2025') || dateStr.includes('2026')) {
+        const parts = dateStr.trim().split(' ');
+        
+        // Handle cases like "December 12 2025" (add comma)
+        if (parts.length === 3) {
+            const month = parts[0];
+            const day = parts[1];
+            const year = parts[2];
+            return `${month} ${day}, ${year}`;
+        }
+        
+        // Handle cases like "December 2025" or "February 2026"
+        if (parts.length === 2) {
+            const month = parts[0];
+            const year = parts[1];
+            return `${month} ${year}`;
+        }
+    }
+    
+    // Try to parse as a standard date
     const date = new Date(dateStr);
     
     // If it's a valid date, format it as "Month Day, Year"
@@ -189,25 +209,6 @@ function formatEventDate(dateStr) {
             day: 'numeric', 
             year: 'numeric' 
         });
-    }
-    
-    // For partial dates like "December 2025" or "February 2026"
-    if (dateStr.includes('2025') || dateStr.includes('2026')) {
-        // Handle cases like "December 2025"
-        const parts = dateStr.trim().split(' ');
-        if (parts.length === 2) {
-            const month = parts[0];
-            const year = parts[1];
-            return `${month} ${year}`;
-        }
-        
-        // Handle cases like "September 6 2025" (add comma)
-        if (parts.length === 3) {
-            const month = parts[0];
-            const day = parts[1];
-            const year = parts[2];
-            return `${month} ${day}, ${year}`;
-        }
     }
     
     // Return original if we can't format it
@@ -220,7 +221,7 @@ function createEventElement(event) {
     
     eventDiv.innerHTML = `
         <h3 class="event-name">${escapeHtml(event['Event Name'] || '')}</h3>
-        <p class="event-date"><strong>Date:</strong> ${escapeHtml(event.Date || '')}</p>
+        <p class="event-date"><strong>Date:</strong> ${escapeHtml(formatEventDate(event.Date) || '')}</p>
         <p class="event-time"><strong>Time:</strong> ${escapeHtml(event.Time || '')}</p>
         <p class="event-location"><strong>Location:</strong> ${escapeHtml(event.Location || '')}</p>
         <p class="event-description">${escapeHtml(event.Description || '')}</p>
