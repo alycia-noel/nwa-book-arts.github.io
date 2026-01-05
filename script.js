@@ -1,4 +1,4 @@
-// NWA Book Arts Website JavaScript
+// Ozark Book Arts Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the website

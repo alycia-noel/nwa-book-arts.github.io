@@ -1,4 +1,4 @@
-# NWA Book Arts Website
+# Ozark Book Arts Website
 
 A website for Northwest Arkansas Book Arts, a collective of bookbinders, book conservators, book artists, and book lovers.
 
@@ -82,4 +82,4 @@ The website uses CSS custom properties (variables) for easy customization. Key v
 
 ## Contact
 
-For questions about the website or to join NWA Book Arts, visit: https://forms.gle/c7bKJwp8KhnTtTnp6
+For questions about the website or to join Ozark Book Arts, visit: https://forms.gle/c7bKJwp8KhnTtTnp6

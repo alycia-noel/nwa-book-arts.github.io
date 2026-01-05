@@ -1,4 +1,4 @@
-These are the instructions for building a website for NWA Book Arts. Follow the wanted color scheme, fonts, styles, and all requirements. Make the website so that it can be hosted on github pages.
+These are the instructions for building a website for Ozark Book Arts. Follow the wanted color scheme, fonts, styles, and all requirements. Make the website so that it can be hosted on github pages.
 
 Colors to use:
 #EAEEF1
@@ -15,9 +15,9 @@ Styles:
 Friendly, round, simple
 
 Requirements:
-1. Header with the title 'NWA BOOK ARTS' on the left and navigations buttons for 'Events', and 'Member Resources' on the right. This header should be visible on every page and serve and the main navigation bar for the site. See references/header.png for reference. 
+1. Header with the title 'OZARK BOOK ARTS' on the left and navigations buttons for 'Events', and 'Member Resources' on the right. This header should be visible on every page and serve and the main navigation bar for the site. See references/header.png for reference. 
 
-2. Footer with 'NWA BOOK ARTS' title on the left, with navigation in the middle and a sign up form on the right. See references/footer.png reference. 
+2. Footer with 'OZARK BOOK ARTS' title on the left, with navigation in the middle and a sign up form on the right. See references/footer.png reference. 
 
 2. Landing page with the following
     A. Section 1 with an image (assets/intro-photo.jpg) overlaid with the text 'Northwest Arkansas Book Arts \n For anyone at any level'. See references/section1.png for reference. 
