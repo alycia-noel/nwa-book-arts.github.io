@@ -21,220 +21,220 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeNavigation() {
     // Highlight current page in navigation
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.nav-link, .footer-link');
+    const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
         if (href === currentPage || 
             (currentPage === '' && href === 'index.html') ||
             (currentPage === 'index.html' && href === 'index.html')) {
-            link.style.backgroundColor = 'var(--color-secondary)';
+            link.style.backgroundColor = '#DBD5D5';
         }
     });
 }
 
-// CSV parsing and event loading
-async function loadEventsFromCSV() {
-    try {
-        const response = await fetch('assets/events.csv');
-        const csvText = await response.text();
-        const events = parseCSV(csvText);
+// // CSV parsing and event loading
+// async function loadEventsFromCSV() {
+//     try {
+//         const response = await fetch('assets/events.csv');
+//         const csvText = await response.text();
+//         const events = parseCSV(csvText);
         
-        displayEvents(events);
-    } catch (error) {
-        console.error('Error loading events:', error);
-        // Fallback to static events that are already in the HTML
-    }
-}
+//         displayEvents(events);
+//     } catch (error) {
+//         console.error('Error loading events:', error);
+//         // Fallback to static events that are already in the HTML
+//     }
+// }
 
-function parseCSV(csvText) {
-    const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    const events = [];
+// function parseCSV(csvText) {
+//     const lines = csvText.trim().split('\n');
+//     const headers = lines[0].split(',').map(h => h.trim());
+//     const events = [];
     
-    for (let i = 1; i < lines.length; i++) {
-        const values = parseCSVLine(lines[i]);
-        const event = {};
+//     for (let i = 1; i < lines.length; i++) {
+//         const values = parseCSVLine(lines[i]);
+//         const event = {};
         
-        headers.forEach((header, index) => {
-            event[header] = values[index] ? values[index].trim() : '';
-        });
+//         headers.forEach((header, index) => {
+//             event[header] = values[index] ? values[index].trim() : '';
+//         });
         
-        events.push(event);
-    }
+//         events.push(event);
+//     }
     
-    return events;
-}
+//     return events;
+// }
 
-function parseCSVLine(line) {
-    const result = [];
-    let current = '';
-    let inQuotes = false;
+// function parseCSVLine(line) {
+//     const result = [];
+//     let current = '';
+//     let inQuotes = false;
     
-    for (let i = 0; i < line.length; i++) {
-        const char = line[i];
+//     for (let i = 0; i < line.length; i++) {
+//         const char = line[i];
         
-        if (char === '"') {
-            inQuotes = !inQuotes;
-        } else if (char === ',' && !inQuotes) {
-            result.push(current);
-            current = '';
-        } else {
-            current += char;
-        }
-    }
+//         if (char === '"') {
+//             inQuotes = !inQuotes;
+//         } else if (char === ',' && !inQuotes) {
+//             result.push(current);
+//             current = '';
+//         } else {
+//             current += char;
+//         }
+//     }
     
-    result.push(current);
-    return result;
-}
+//     result.push(current);
+//     return result;
+// }
 
-function displayEvents(events) {
-    const upcomingContainer = document.getElementById('upcoming-events');
-    const previousContainer = document.getElementById('previous-events');
+// function displayEvents(events) {
+//     const upcomingContainer = document.getElementById('upcoming-events');
+//     const previousContainer = document.getElementById('previous-events');
     
-    if (!upcomingContainer || !previousContainer) return;
+//     if (!upcomingContainer || !previousContainer) return;
     
-    // Clear existing content
-    upcomingContainer.innerHTML = '';
-    previousContainer.innerHTML = '';
+//     // Clear existing content
+//     upcomingContainer.innerHTML = '';
+//     previousContainer.innerHTML = '';
     
-    // Separate upcoming and previous events
-    const upcomingEvents = events.filter(event => event.Upcoming === 'True' || event.Upcoming === true);
-    const previousEvents = events.filter(event => event.Upcoming === 'False' || event.Upcoming === false);
+//     // Separate upcoming and previous events
+//     const upcomingEvents = events.filter(event => event.Upcoming === 'True' || event.Upcoming === true);
+//     const previousEvents = events.filter(event => event.Upcoming === 'False' || event.Upcoming === false);
     
-    // Display upcoming events normally
-    upcomingEvents.forEach(event => {
-        const eventElement = createEventElement(event);
-        upcomingContainer.appendChild(eventElement);
-    });
+//     // Display upcoming events normally
+//     upcomingEvents.forEach(event => {
+//         const eventElement = createEventElement(event);
+//         upcomingContainer.appendChild(eventElement);
+//     });
     
-    // Organize previous events by month/year
-    displayPreviousEvents(previousEvents, previousContainer);
+//     // Organize previous events by month/year
+//     displayPreviousEvents(previousEvents, previousContainer);
     
-    // Add fallback message if no events
-    if (upcomingContainer.children.length === 0) {
-        upcomingContainer.innerHTML = '<p class="no-events">No upcoming events at this time.</p>';
-    }
+//     // Add fallback message if no events
+//     if (upcomingContainer.children.length === 0) {
+//         upcomingContainer.innerHTML = '<p class="no-events">No upcoming events at this time.</p>';
+//     }
     
-    if (previousContainer.children.length === 0) {
-        previousContainer.innerHTML = '<p class="no-events">No previous events to display.</p>';
-    }
-}
+//     if (previousContainer.children.length === 0) {
+//         previousContainer.innerHTML = '<p class="no-events">No previous events to display.</p>';
+//     }
+// }
 
-function displayPreviousEvents(events, container) {
-    // Sort events chronologically (newest first)
-    const sortedEvents = events.sort((a, b) => {
-        const dateA = new Date(a.Date || '1900-01-01');
-        const dateB = new Date(b.Date || '1900-01-01');
-        return dateB - dateA;
-    });
+// function displayPreviousEvents(events, container) {
+//     // Sort events chronologically (newest first)
+//     const sortedEvents = events.sort((a, b) => {
+//         const dateA = new Date(a.Date || '1900-01-01');
+//         const dateB = new Date(b.Date || '1900-01-01');
+//         return dateB - dateA;
+//     });
     
-    // Create a single event list
-    const eventList = document.createElement('ul');
-    eventList.className = 'event-list';
+//     // Create a single event list
+//     const eventList = document.createElement('ul');
+//     eventList.className = 'event-list';
     
-    sortedEvents.forEach(event => {
-        const listItem = document.createElement('li');
-        listItem.className = 'event-bullet';
+//     sortedEvents.forEach(event => {
+//         const listItem = document.createElement('li');
+//         listItem.className = 'event-bullet';
         
-        const eventLink = document.createElement('a');
-        eventLink.className = 'event-link';
-        eventLink.href = `events/${createEventSlug(event['Event Name'])}.html`;
+//         const eventLink = document.createElement('a');
+//         eventLink.className = 'event-link';
+//         eventLink.href = `events/${createEventSlug(event['Event Name'])}.html`;
         
-        // Format as 'Date - Event Name'
-        const dateStr = formatEventDate(event.Date) || 'TBA';
-        const eventName = event['Event Name'] || 'Untitled Event';
-        eventLink.textContent = `${dateStr} - ${eventName}`;
+//         // Format as 'Date - Event Name'
+//         const dateStr = formatEventDate(event.Date) || 'TBA';
+//         const eventName = event['Event Name'] || 'Untitled Event';
+//         eventLink.textContent = `${dateStr} - ${eventName}`;
         
-        listItem.appendChild(eventLink);
-        eventList.appendChild(listItem);
-    });
+//         listItem.appendChild(eventLink);
+//         eventList.appendChild(listItem);
+//     });
     
-    container.appendChild(eventList);
-}
+//     container.appendChild(eventList);
+// }
 
-function extractMonthYear(dateStr) {
-    // Try to parse different date formats and extract month/year
-    const date = new Date(dateStr);
+// function extractMonthYear(dateStr) {
+//     // Try to parse different date formats and extract month/year
+//     const date = new Date(dateStr);
     
-    if (!isNaN(date.getTime())) {
-        return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    }
+//     if (!isNaN(date.getTime())) {
+//         return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+//     }
     
-    // Fallback for non-standard formats
-    if (dateStr.includes('2025')) return 'November 2025';
-    if (dateStr.includes('2026')) return 'February 2026';
+//     // Fallback for non-standard formats
+//     if (dateStr.includes('2025')) return 'November 2025';
+//     if (dateStr.includes('2026')) return 'February 2026';
     
-    return 'Unknown Date';
-}
+//     return 'Unknown Date';
+// }
 
-function createEventSlug(eventName) {
-    return eventName.toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/-+/g, '-')
-        .trim('-');
-}
+// function createEventSlug(eventName) {
+//     return eventName.toLowerCase()
+//         .replace(/[^a-z0-9\s-]/g, '')
+//         .replace(/\s+/g, '-')
+//         .replace(/-+/g, '-')
+//         .trim('-');
+// }
 
-function formatEventDate(dateStr) {
-    if (!dateStr || dateStr === 'TBA') return dateStr;
+// function formatEventDate(dateStr) {
+//     if (!dateStr || dateStr === 'TBA') return dateStr;
     
-    // First, handle the common formats in our CSV
-    if (dateStr.includes('2025') || dateStr.includes('2026')) {
-        const parts = dateStr.trim().split(' ');
+//     // First, handle the common formats in our CSV
+//     if (dateStr.includes('2025') || dateStr.includes('2026')) {
+//         const parts = dateStr.trim().split(' ');
         
-        // Handle cases like "December 12 2025" (add comma)
-        if (parts.length === 3) {
-            const month = parts[0];
-            const day = parts[1];
-            const year = parts[2];
-            return `${month} ${day}, ${year}`;
-        }
+//         // Handle cases like "December 12 2025" (add comma)
+//         if (parts.length === 3) {
+//             const month = parts[0];
+//             const day = parts[1];
+//             const year = parts[2];
+//             return `${month} ${day}, ${year}`;
+//         }
         
-        // Handle cases like "December 2025" or "February 2026"
-        if (parts.length === 2) {
-            const month = parts[0];
-            const year = parts[1];
-            return `${month} ${year}`;
-        }
-    }
+//         // Handle cases like "December 2025" or "February 2026"
+//         if (parts.length === 2) {
+//             const month = parts[0];
+//             const year = parts[1];
+//             return `${month} ${year}`;
+//         }
+//     }
     
-    // Try to parse as a standard date
-    const date = new Date(dateStr);
+//     // Try to parse as a standard date
+//     const date = new Date(dateStr);
     
-    // If it's a valid date, format it as "Month Day, Year"
-    if (!isNaN(date.getTime())) {
-        return date.toLocaleDateString('en-US', { 
-            month: 'long', 
-            day: 'numeric', 
-            year: 'numeric' 
-        });
-    }
+//     // If it's a valid date, format it as "Month Day, Year"
+//     if (!isNaN(date.getTime())) {
+//         return date.toLocaleDateString('en-US', { 
+//             month: 'long', 
+//             day: 'numeric', 
+//             year: 'numeric' 
+//         });
+//     }
     
-    // Return original if we can't format it
-    return dateStr;
-}
+//     // Return original if we can't format it
+//     return dateStr;
+// }
 
-function createEventElement(event) {
-    const eventDiv = document.createElement('div');
-    eventDiv.className = 'event-item';
+// function createEventElement(event) {
+//     const eventDiv = document.createElement('div');
+//     eventDiv.className = 'event-item';
     
-    eventDiv.innerHTML = `
-        <h3 class="event-name">${escapeHtml(event['Event Name'] || '')}</h3>
-        <p class="event-date"><strong>Date:</strong> ${escapeHtml(formatEventDate(event.Date) || '')}</p>
-        <p class="event-time"><strong>Time:</strong> ${escapeHtml(event.Time || '')}</p>
-        <p class="event-location"><strong>Location:</strong> ${escapeHtml(event.Location || '')}</p>
-        <p class="event-description">${escapeHtml(event.Description || '')}</p>
-    `;
+//     eventDiv.innerHTML = `
+//         <h3 class="event-name">${escapeHtml(event['Event Name'] || '')}</h3>
+//         <p class="event-date"><strong>Date:</strong> ${escapeHtml(formatEventDate(event.Date) || '')}</p>
+//         <p class="event-time"><strong>Time:</strong> ${escapeHtml(event.Time || '')}</p>
+//         <p class="event-location"><strong>Location:</strong> ${escapeHtml(event.Location || '')}</p>
+//         <p class="event-description">${escapeHtml(event.Description || '')}</p>
+//     `;
     
-    return eventDiv;
-}
+//     return eventDiv;
+// }
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
+// function escapeHtml(text) {
+//     const div = document.createElement('div');
+//     div.textContent = text;
+//     return div.innerHTML;
+// }
 
 // Smooth scrolling for internal links
 function initializeSmoothScrolling() {
