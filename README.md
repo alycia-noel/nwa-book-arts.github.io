@@ -2,7 +2,7 @@
 
 A website for Northwest Arkansas Book Arts, a collective of bookbinders, book conservators, book artists, and book lovers.
 
-## Features
+<!-- ## Features
 
 - **Responsive Design**: Mobile-friendly layout that works on all devices
 - **Dynamic Events**: Events are loaded from CSV data and automatically categorized
@@ -82,4 +82,4 @@ The website uses CSS custom properties (variables) for easy customization. Key v
 
 ## Contact
 
-For questions about the website or to join Ozark Book Arts, visit: https://forms.gle/c7bKJwp8KhnTtTnp6
+For questions about the website or to join Ozark Book Arts, visit: https://forms.gle/c7bKJwp8KhnTtTnp6 -->
