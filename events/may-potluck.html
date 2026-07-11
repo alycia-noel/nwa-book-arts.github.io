@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Fools Tools</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sansita:wght@400;700;800;900&family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><a href="../index.html" style="text-decoration: none; color: inherit;">OZARK BOOK ARTS</a></h1>
+            <nav class="nav">
+                <a href="../events.html" class="nav-link">Events</a>
+                <a href="../member-resources.html" class="nav-link">Member Resources</a>
+                <a href="https://forms.gle/tti4nbi5iUxZFLDp6" class="nav-link" target="_blank">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="../events.html" class="breadcrumb-link">← Back to Events</a>
+            </nav>
+            
+            <article class="event-detail">
+                <header class="event-header">
+                    <h1 class="event-title">Potluck and Show-and-Tell</h1>
+                    <div class="event-meta">
+                        <p class="event-date"><strong>Date:</strong> May 31, 2026</p>
+                        <p class="event-time"><strong>Time:</strong> 5:00 PM - 7:00 PM</p>
+                        <p class="event-location"><strong>Location:</strong> Lesha's Home</p>
+                    </div>
+                </header>
+                
+                <section class="event-content">
+                    <div class="event-description">
+                        <h2>About This Event</h2>
+                        <p>Hi everyone! I am going to host an Ozark Book Arts Potluck on May 31 from 5-7:00ish p.m.
+Bring your favorite savory dish to share! We will have an update on the website from Alycia and show and tell from any members who want to bring current projects they are working on... This will also be a chance for us to talk and get to know one another. I will provide drinks and coffee and dessert. Address will be provided the week of meetup but I am in West Fayetteville, a quick and easy trip off of I-49. Hope to see you there! Please RSVP before May 30 so that I may prepare. Looking forward to hosting you!</p>
+                        
+                        <div class="event-status">
+                            <p><strong>Status:</strong> <span class="status-completed">Completed</span></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Workshop Photos -->
+                    <div class="event-gallery">
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-track">
+                                <div class="carousel-slide">
+                                    <img src="../assets/workshop-photos/may-potluck/img1.jpeg" alt="">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="../assets/workshop-photos/may-potluck/img2.jpeg" alt="">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="../assets/workshop-photos/may-potluck/img3.jpeg" alt="">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="../assets/workshop-photos/may-potluck/img4.jpeg" alt="">
+                                </div>
+                            </div>
+                            
+                            <!-- Navigation Buttons -->
+                            <button class="carousel-nav carousel-prev" onclick="moveCarousel(-1)">❮</button>
+                            <button class="carousel-nav carousel-next" onclick="moveCarousel(1)">❯</button>
+                            
+                            <!-- Dots Indicator -->
+                            <div class="carousel-dots" id="carousel-dots">
+                                <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+                                <span class="carousel-dot" onclick="currentSlide(2)"></span>
+                                <span class="carousel-dot" onclick="currentSlide(3)"></span>
+                                <span class="carousel-dot" onclick="currentSlide(4)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>OZARK BOOK ARTS</h3>
+                </div>
+                <nav class="footer-nav">
+                    <a href="../index.html" class="footer-link">Home</a>
+                    <a href="../events.html" class="footer-link">Events</a>
+                    <a href="../member-resources.html" class="footer-link">Member Resources</a>
+                    <a href="https://forms.gle/tti4nbi5iUxZFLDp6" class="footer-link" target="_blank">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
